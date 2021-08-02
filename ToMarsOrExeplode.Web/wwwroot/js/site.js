@@ -17,38 +17,82 @@ function startProbe() {
 }
 
 function rotateLeft() {
-    let probe = selectedProbe();
-    let elem = document.getElementById(probe);
-    let x = elem.style.transform.replace(/\D+/g, '');
-    let val = parseInt(x, 10);
-    elem.style.transform = `rotate(${val - 90}deg)`;
+    if (verifyEmptyListProbe()) {
+        let probe = selectedProbe();
+        if (probe !== null) {
+            let elem = document.getElementById(probe);
+            let x = elem.style.transform.replace(/\D+/g, '');
+            let val = parseInt(x, 10);
+            elem.style.transform = `rotate(${-val - 90}deg)`;
+        } else {
+            alert("select a probe to control");
+        }
+    } else {
+        alert("start a probe to control");
+    }    
 }
 
 function rotateRight() {
-    let probe = selectedProbe();
-    let elem = document.getElementById(probe);
-    let x = elem.style.transform.replace(/\D+/g, '');
-    let val = parseInt(x, 10);
-    elem.style.transform = `rotate(${val + 90}deg)`;
+    if (verifyEmptyListProbe()) {
+        let probe = selectedProbe();
+        if (probe !== null) {
+            let elem = document.getElementById(probe);
+            let x = elem.style.transform.replace(/\D+/g, '');
+            let val = parseInt(x, 10);
+            elem.style.transform = `rotate(${val + 90}deg)`;
+        } else {
+            alert("select a probe to control");
+        }
+    } else {
+        alert("start a probe to control");
+    }
 }
 
 function moveLeft() {
-    let probe = selectedProbe();
-    let elem = document.getElementById(probe);
-    let val = parseInt(elem.style.left, 10);
-    elem.style.left = (val + 1) + "px";
+    if (verifyEmptyListProbe()) {
+        let probe = selectedProbe();
+        if (probe !== null) {        
+            let elem = document.getElementById(probe);
+            let val = parseInt(elem.style.left, 10);
+            elem.style.left = (val + 1) + "px";
+        } else {
+        alert("select a probe to control");
+        }
+    } else {
+        alert("start a probe to control");
+    }
 }
 
 function moveRight() {
-    let probe = selectedProbe();
-    let elem = document.getElementById(probe);
-    let val = parseInt(elem.style.bottom, 10);
-    elem.style.bottom = (val + 1) + "px";
+    if (verifyEmptyListProbe()) {
+        let probe = selectedProbe();
+        if (probe !== null) {
+            let elem = document.getElementById(probe);
+            let val = parseInt(elem.style.bottom, 10);
+            elem.style.bottom = (val + 1) + "px";
+        } else {
+            alert("select a probe to control");
+        }
+    } else {
+        alert("start a probe to control");
+    }
 }
 
 function selectedProbe() {
-    let e = document.getElementById("list-select-probe");
-    return e.options[e.selectedIndex].value;
+    try {
+        let e = document.getElementById("list-select-probe");
+        return e.options[e.selectedIndex].value;
+    } catch {
+        return null;
+    }    
+}
+
+function verifyEmptyListProbe() {
+    let e = document.getElementById("list-select-probe").length;
+    if (e > 0)
+        return true;
+    else
+        return false;
 }
 
 document.addEventListener('keydown', (event) => {
