@@ -9,9 +9,9 @@ namespace ToMarsOrExplode.Core
         public Position InitialPosition { get; private set; }
         public Position CurrentPosition { get; private set; }
         public Grid Grid { get; private set; }
-        public char[] Commands { get; private set; }
+        public string Commands { get; private set; }
 
-        public ProbeControl(Position position, Grid grid, char[] commands)
+        public ProbeControl(Position position, Grid grid, string commands)
         {
             InitialPosition = position;
             CurrentPosition = position;
@@ -21,67 +21,64 @@ namespace ToMarsOrExplode.Core
 
         public void ExecuteCommands()
         {
-            foreach (var c in Commands)
-            {
-                if (c == ((char)Rotation.Left) || c == (char)Rotation.Right)
-                    Rotate(c);
-                else if (c == (char)Move.Move)
-                    Movement();
-            }  
+            if (Commands == Rotation.Left.ToString() || Commands == Rotation.Right.ToString())
+                Rotate(Commands);
+            else if (Commands == (string)Move.Move.ToString())
+                Movement();
         }
 
-        public void Rotate(char rotation)
+        public void Rotate(string rotation)
         {
             switch(rotation)
             {
-                case char rot when rotation == (char)Rotation.Right:
-                    if((char) CardinalPoints.North == CurrentPosition.CardinalPoint)
+                case string rot when rotation == Rotation.Right.ToString():
+                    if(CardinalPoints.North.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.East;
+                        CurrentPosition.CardinalPoint = CardinalPoints.East.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.East == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.East.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.South;
+                        CurrentPosition.CardinalPoint = CardinalPoints.South.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.South == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.South.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.West;
+                        CurrentPosition.CardinalPoint = CardinalPoints.West.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.West == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.West.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.North;
+                        CurrentPosition.CardinalPoint = CardinalPoints.North.ToString();
                         break;
                     }
                 break;
 
-                case char rot when rotation == (char)Rotation.Left:
-                    if ((char)CardinalPoints.North == CurrentPosition.CardinalPoint)
+                case string rot when rotation == Rotation.Left.ToString():
+                    if (CardinalPoints.North.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.West;
+                        CurrentPosition.CardinalPoint = CardinalPoints.West.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.West == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.West.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.South;
+                        CurrentPosition.CardinalPoint = CardinalPoints.South.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.South == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.South.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.East;
+                        CurrentPosition.CardinalPoint = CardinalPoints.East.ToString();
                         break;
                     }
 
-                    if ((char)CardinalPoints.East == CurrentPosition.CardinalPoint)
+                    if (CardinalPoints.East.ToString() == CurrentPosition.CardinalPoint)
                     {
-                        CurrentPosition.CardinalPoint = (char)CardinalPoints.North;
+                        CurrentPosition.CardinalPoint = CardinalPoints.North.ToString();
                         break;
                     }
                 break;
@@ -95,28 +92,28 @@ namespace ToMarsOrExplode.Core
         {
             switch(CurrentPosition.CardinalPoint)
             {
-                case char pos when (char)CardinalPoints.North == pos:
+                case string pos when CardinalPoints.North.ToString() == pos:
                     if(CurrentPosition.YPoint < Grid.height)
                     {
                         CurrentPosition.YPoint++;
                     }
                 break;
 
-                case char pos when (char)CardinalPoints.South == pos:
+                case string pos when CardinalPoints.South.ToString() == pos:
                     if (CurrentPosition.YPoint > 0)
                     {
                         CurrentPosition.YPoint--;
                     }
                 break;
 
-                case char pos when (char)CardinalPoints.East == pos:
+                case string pos when CardinalPoints.East.ToString() == pos:
                     if (CurrentPosition.XPoint < Grid.width)
                     {
                         CurrentPosition.YPoint++;
                     }
                 break;
 
-                case char pos when (char)CardinalPoints.West == pos:
+                case string pos when CardinalPoints.West.ToString() == pos:
                     if (CurrentPosition.XPoint > 0)
                     {
                         CurrentPosition.YPoint--;

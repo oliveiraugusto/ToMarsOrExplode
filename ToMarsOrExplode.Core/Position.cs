@@ -8,9 +8,9 @@ namespace ToMarsOrExplode.Core
     {
         public int XPoint { get; set; }
         public int YPoint { get; set; }
-        public char CardinalPoint { get; set; }
+        public string CardinalPoint { get; set; }
 
-        public Position(int x, int y, char cardinalPoint)
+        public Position(int x, int y, string cardinalPoint)
         {
             XPoint = x;
             YPoint = y;
